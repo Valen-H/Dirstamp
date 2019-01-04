@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"declaration": true,
+		"declarationDir": "./typings/",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"sourceMap": true,
+		"module": "commonjs",
+		"outDir": "./out",
+		"preserveConstEnums": true,
+		"removeComments": false,
+		"target": "esnext",
+		"watch": true
+	},
+	"compileOnSave": true,
+	"include": [
+		"./**/*.ts"
+	]
+}
