@@ -6,7 +6,7 @@ Take stamps of directories with ease!
 `dirstamp path/`  
 `dirstamp path/ -j > struct.json`  
   
-> Validate currect structure out of `.json` struct files with `dirstamp -c struct.json path/`  
+> Validate current structure out of `.json` struct files with `dirstamp -c struct.json path/`  
 
 ## Options  
 **-p** -- Switch sorting method from `shift` to `push`  
