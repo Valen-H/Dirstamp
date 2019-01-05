@@ -131,6 +131,7 @@ klaw(pth = path.normalize(copy.join(' ') || pth), <klaw.Options>opts)
 	.on("data", (item: klaw.Item) => {
 		ensure(path.relative(path.normalize(pth), item.path));
 	}).once("end", () => {
+		delete struct[""];
 		if (custom.check) {
 			let out: object[] = checkValidity(struct);
 			//@ts-ignore

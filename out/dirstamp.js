@@ -109,6 +109,7 @@ klaw(pth = path.normalize(copy.join(' ') || pth), opts)
     .on("data", (item) => {
     ensure(path.relative(path.normalize(pth), item.path));
 }).once("end", () => {
+    delete struct[""];
     if (custom.check) {
         let out = checkValidity(struct);
         //@ts-ignore
