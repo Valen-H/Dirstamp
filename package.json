@@ -1,10 +1,11 @@
 {
   "name": "dirstamp",
   "version": "1.0.0",
-  "description": "A program that takes timestamps of directory structure",
+  "description": "A program that takes timestamps of directory structures",
   "main": "./out/dirstamp.js",
   "scripts": {
-    "test": "node ./out/dirstamp.js -j -p -P -d 5 > test.js",
+	"test": "node ./out/dirstamp.js -j -p -s -d 5 > test.txt",
+	"xpose": "showdown makehtml -i README.md -o readme.htm",
     "start": "node ./out/dirstamp.js"
   },
   "bin": "./out/dirstamp.js",
@@ -18,10 +19,13 @@
   "author": "V. H.",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^2.4.1",
     "klaw": "^3.0.0"
   },
   "devDependencies": {
+    "@types/chalk": "^2.2.0",
     "@types/klaw": "^2.1.1",
-    "typescript": "^3.2.2"
+	"typescript": "^3.2.2",
+	"showdown": "^1.9.0"
   }
 }

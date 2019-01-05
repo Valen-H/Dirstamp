@@ -3,14 +3,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const klaw = require("klaw");
 const path = require("path");
-const util_1 = require("util");
+const fs = require("fs");
+const chalk = require("chalk");
 const os_1 = require("os");
 const opts = {
     depthLimit: -1,
     preserveSymlinks: false,
     queueMethod: "shift"
-}, isFalse = /^(no?|false)$/i, custom = {
-    json: false
+}, custom = {
+    json: false,
+    check: null
 };
 function remove(arr, rem) {
     let idx = arr.findIndex((v) => v === rem);
@@ -26,17 +28,18 @@ function ensure(pth) {
         obj = (obj[i] = obj[i] || {});
     }
     if (i) {
-        par[i] = (par[i] instanceof Array) ? par[i] : [];
-        par[i].push(pth.split(path.sep).pop());
+        par[i] = (par[i] = par[i] || {});
+        par[i][pth.split(path.sep).pop()] = '';
+    }
+    else {
+        par[pth.split(path.sep).pop()] = '';
     }
 } //ensure
 function breakdown(root = struct, offset = 0, key) {
-    let tb = "\t".repeat(offset), ret = tb + key + os_1.EOL;
+    let tb = "\t".repeat(offset), ret = os_1.EOL + tb + key;
     tb += '\t';
-    if (root instanceof Array) {
-        for (let i of root) {
-            ret += tb + i + os_1.EOL;
-        }
+    if (typeof root === "string") {
+        ret += tb + root;
     }
     else {
         for (let i in root) {
@@ -45,36 +48,80 @@ function breakdown(root = struct, offset = 0, key) {
     }
     return ret;
 } //breakdown
-let copy = Array.from(process.argv.slice(2)), struct = {}, pth = process.cwd();
-opts.preserveSymlinks = copy.includes("-p");
+function checkValidity(struct, base = check, missing = {}) {
+    missing = missing || {};
+    for (let i in struct) {
+        if (typeof struct[i] === "string") {
+            if (!(i in base)) {
+                missing[i] = '';
+            }
+            delete base[i];
+        }
+        else {
+            checkValidity(struct[i], base[i] = base[i] || {}, missing[i] = missing[i] || {});
+            if (!Object.keys(base[i]).length) {
+                delete base[i];
+            }
+        }
+    }
+    return [prune("missing", { missing: missing }), base];
+} //checkValidity
+function prune(prop, targ) {
+    if (!Object.keys(targ[prop]).length && typeof targ[prop] !== "string") {
+        delete targ[prop];
+    }
+    else if (typeof targ[prop] !== "string") {
+        for (let i in targ[prop]) {
+            prune(i, targ[prop]);
+        }
+    }
+    return targ;
+} //prune
+let copy = Array.from(process.argv.slice(2)), struct = {}, pth = process.cwd(), check = {};
+opts.preserveSymlinks = copy.includes("-s");
 custom.json = copy.includes("-j");
-opts.queueMethod = (copy.includes("-P") ? "pop" : "shift");
+opts.queueMethod = (copy.includes("-p") ? "pop" : "shift");
 if (copy.includes("-d")) {
     let idx;
     opts.depthLimit = Number.parseInt(copy[(idx = copy.findIndex((val) => val === "-d")) + 1]);
     if (isNaN(opts.depthLimit)) {
-        console.error("INVALID DEPTH!\t-d", copy[idx + 1]);
+        console.error(chalk["italic"]("INVALID DEPTH!\t-d"), chalk["red"](copy[idx + 1]));
+        process.exit(1);
+    }
+    copy.splice(idx, 2);
+}
+if (copy.includes("-c")) {
+    let idx;
+    custom.check = path.normalize(copy[(idx = copy.findIndex((val) => val === "-c")) + 1]);
+    try {
+        check = JSON.parse(fs.readFileSync(custom.check, "utf8"));
+    }
+    catch (err) {
+        console.error(chalk["red"](err.message));
+        process.exit(err.code);
     }
     copy.splice(idx, 2);
 }
 remove(copy, "-p");
-remove(copy, "-P");
+remove(copy, "-s");
 remove(copy, "-j");
-klaw(pth = path.normalize(copy.pop() || pth), opts)
+klaw(pth = path.normalize(copy.join(' ') || pth), opts)
     .on("data", (item) => {
     ensure(path.relative(path.normalize(pth), item.path));
 }).once("end", () => {
-    if (custom.json) {
-        process.stdout.write(util_1.inspect(struct, {
-            compact: true,
-            depth: Infinity,
-            breakLength: Infinity
-        }).replace(/(\B) (\B)?/gmi, "$1$2"));
+    if (custom.check) {
+        let out = checkValidity(struct);
+        //@ts-ignore
+        process.stdout.write(chalk["green"](breakdown(out[0].missing, 0, chalk["underline"]("EXTRANEOUS:") + os_1.EOL)));
+        process.stdout.write(chalk["red"](breakdown(out[1], 0, chalk["underline"]("MISSING:") + os_1.EOL)) + os_1.EOL);
+    }
+    else if (custom.json) {
+        process.stdout.write(JSON.stringify(struct, null, 0));
     }
     else {
-        process.stdout.write(breakdown(struct, 0, path.normalize(pth)));
+        process.stdout.write(breakdown(struct, 0, path.basename(pth)));
     }
-}).once("error", (err, item) => {
-    console.error(item.path, os_1.EOL, err.message);
+}).once("error", (err) => {
+    console.error(chalk["red"](err.message));
 });
 //# sourceMappingURL=dirstamp.js.map
