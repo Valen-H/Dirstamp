@@ -9,6 +9,7 @@
     "start": "node ./out/dirstamp.js"
   },
   "bin": "./out/dirstamp.js",
+  "types": "./typings",
   "keywords": [
     "directory",
     "timestamp",
