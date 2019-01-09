@@ -12,5 +12,7 @@ Take stamps of directories with ease!
 **-p** -- Switch sorting method from `shift` to `push`  
 **-j** -- Print JSON  
 **-s** -- Follow Symlinks  
-**-d** -- Max depth (Defaults to Infinity [-1] )  
-**-c** -- Read a JSON file and compare to current structure  
+**-d <Number>** -- Max depth (Defaults to Infinity [-1] )  
+**-c <File>** -- Read a JSON file and compare to current structure  
+**-C** -- Disable colors  
+**-w** -- Override default behaviour and start watching changes instead (ctrl+c to stop) ['rename' might equal to add/delete]  
