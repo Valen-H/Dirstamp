@@ -11,6 +11,7 @@ Take stamps of directories with ease!
 > Validate current structure out of `.json` struct files with `dirstamp -c struct.json path/`  
 
 ## Options  
+<<<<<<< HEAD
   
 * **-p** -- Switch sorting method from `shift` to `push`  
 * **-j** -- Print JSON  
@@ -21,3 +22,12 @@ Take stamps of directories with ease!
 * **-w** -- Override default behaviour and start watching changes instead (ctrl+c to stop) ['rename' might be equal to add/delete]  
 * **-h** -- Help screen  
   
+=======
+**-p** -- Switch sorting method from `shift` to `push`  
+**-j** -- Print JSON  
+**-s** -- Follow Symlinks  
+**-d <Number>** -- Max depth (Defaults to Infinity [-1] )  
+**-c <File>** -- Read a JSON file and compare to current structure  
+**-C** -- Disable colors  
+**-w** -- Override default behaviour and start watching changes instead (ctrl+c to stop) ['rename' might equal to add/delete]  
+>>>>>>> c50a807b4e7d870ddf03a7c1f7e168db5a2cd8ed
