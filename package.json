@@ -1,32 +1,80 @@
 {
   "name": "dirstamp",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "A program that takes timestamps of directory structures",
   "main": "./out/dirstamp.js",
   "scripts": {
-    "test": "node ./out/dirstamp.js -j -p -s -d 5 > test.txt",
     "xpose": "showdown makehtml -i README.md -o readme.htm",
-    "start": "node ./out/dirstamp.js"
+    "start": "node ./out/dirstamp.js",
+    "build": "npx tsc",
+    "mangen": "marked-man --breaks --headerIds --langPrefix javascript --smartLists --smartypants --xhtml --section 1 --manual Help README.md > man/dirstamp.1"
   },
-  "bin": "./out/dirstamp.js",
-  "types": "./typings",
+  "bin": {
+    "dirstamp": "./out/dirstamp.js"
+  },
+  "types": "./typing/dirstamp.d.ts",
   "keywords": [
     "directory",
     "timestamp",
     "backup",
     "klaw",
-    "typescript"
+    "typescript",
+    "colored"
   ],
   "author": "V. H.",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^2.4.1",
-    "klaw": "^3.0.0"
+    "chalk": "^2.4.2",
+    "klaw": "^3.0.0",
+    "strip-ansi": "^5.0.0"
   },
+  "preferGlobal": true,
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/klaw": "^2.1.1",
+    "@types/strip-ansi": "^3.0.0",
     "typescript": "^3.2.2",
     "showdown": "^1.9.0"
-  }
+  },
+  "homepage": "https://github.com/Valen-H/Dirstamp#README.md",
+  "bugs": {
+    "url": "https://github.com/Valen-H/Dirstamp/issues",
+    "email": "alternativexxxy@gmail.com"
+  },
+  "contributors": [],
+  "files": [
+    "*"
+  ],
+  "man": [
+    "./man/dirstamp.1"
+  ],
+  "directories": {
+    "lib": "./lib",
+    "bin": "./bin",
+    "man": "./man",
+    "doc": "./doc",
+    "example": "./test",
+    "test": "./test"
+  },
+  "typings": "lib/typings/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Valen-H/Dirstamp.git",
+    "directory": "./"
+  },
+  "config": {
+    "port": 8080
+  },
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": ">=12.0.0",
+    "npm": ">=3.0.0"
+  },
+  "engineStrict": false,
+  "os": [],
+  "cpu": [],
+  "private": false,
+  "publishConfig": {},
+  "bundleDependencies": []
 }

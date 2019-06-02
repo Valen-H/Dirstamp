@@ -1,0 +1,41 @@
+.P
+﻿  
+.TH "DIRSTAMP" "1" "June 2019" "" "Help"
+.SH "NAME"
+\fBDirStamp\fR
+.P
+Take stamps of directories with ease!  
+.SH Usage
+.RS 0
+.IP \(bu 2
+\fBdirstamp path/\fP  
+.IP \(bu 2
+\fBdirstamp path/ \-j > struct\.json\fP  
+
+.RE
+.QP
+.P
+Validate current structure out of \fB\|\.json\fP struct files with \fBdirstamp \-c struct\.json path/\fP  
+
+.
+.SH Options
+.RS 0
+.IP \(bu 2
+\fB\-p\fR \-\- Switch sorting method from \fBshift\fP to \fBpush\fP  
+.IP \(bu 2
+\fB\-j\fR \-\- Print JSON  
+.IP \(bu 2
+\fB\-s\fR \-\- Follow Symlinks  
+.IP \(bu 2
+\fB\-d <Number>\fR \-\- Max depth (Defaults to Infinity [\-1] )  
+.IP \(bu 2
+\fB\-c <File>\fR \-\- Read a JSON file and compare to current structure  
+.IP \(bu 2
+\fB\-C\fR \-\- Disable colors  
+.IP \(bu 2
+\fB\-w\fR \-\- Override default behaviour and start watching changes instead (ctrl+c to stop) [\|'rename' might be equal to add/delete]  
+.IP \(bu 2
+\fB\-h\fR \-\- Help screen  
+
+.RE
+
