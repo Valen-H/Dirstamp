@@ -1,10 +1,6 @@
 {
   "name": "dirstamp",
-<<<<<<< HEAD
   "version": "1.1.1",
-=======
-  "version": "1.1.0",
->>>>>>> c50a807b4e7d870ddf03a7c1f7e168db5a2cd8ed
   "description": "A program that takes timestamps of directory structures",
   "main": "./out/dirstamp.js",
   "scripts": {
@@ -22,13 +18,8 @@
     "timestamp",
     "backup",
     "klaw",
-<<<<<<< HEAD
     "typescript",
     "colored"
-=======
-  "typescript",
-  "colored"
->>>>>>> c50a807b4e7d870ddf03a7c1f7e168db5a2cd8ed
   ],
   "author": "V. H.",
   "license": "ISC",
