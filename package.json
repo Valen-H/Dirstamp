@@ -7,7 +7,7 @@
     "xpose": "showdown makehtml -i README.md -o readme.htm",
     "start": "node ./out/dirstamp.js",
     "build": "npx tsc",
-    "mangen": "marked-man --breaks --headerIds --langPrefix javascript --smartLists --smartypants --xhtml --section 1 --manual Help README.md > man/dirstamp.1"
+    "mangen": "marked-man --breaks --headerIds --langPrefix javascript --smartLists --smartypants --xhtml --section 1 --manual Help --ver v1.1.1 README.md > man/dirstamp.1"
   },
   "bin": {
     "dirstamp": "./out/dirstamp.js"
@@ -26,15 +26,15 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "klaw": "^3.0.0",
-    "strip-ansi": "^5.0.0"
+    "strip-ansi": "^5.2.0"
   },
   "preferGlobal": true,
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/klaw": "^2.1.1",
     "@types/strip-ansi": "^3.0.0",
-    "typescript": "^3.2.2",
-    "showdown": "^1.9.0"
+    "showdown": "^1.9.0",
+    "typescript": "^3.5.1"
   },
   "homepage": "https://github.com/Valen-H/Dirstamp#README.md",
   "bugs": {

@@ -56,6 +56,7 @@ function breakdown(root: { } = struct, offset: number = 0, key: string): string 
 	if (typeof root === "string") {
 		ret += custom.nocolors ? tb + key : chalk["cyan"]["dim"](tb + key);
 	} else {
+		//@ts-ignore
 		ret += custom.nocolors ? tb + key : chalk[strip(key).trim().endsWith("G:") ? "red" : (strip(key).trim().endsWith("S:") ? "green" : "yellow")]["dim"](tb + key);
 		for (let i in root) {
 			ret += breakdown(root[i], offset + 1, i);
